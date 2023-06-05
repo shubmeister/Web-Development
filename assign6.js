@@ -27,11 +27,18 @@ function addItem(e){
 
     //adding text to li
     li.appendChild(text);
-
+    //Creating edit button
+    var butn=document.createElement('button');
+    //adding className to button
+    butn.className='btn btn-dark float-right';
+    //adding text to button
+    butn.appendChild(document.createTextNode('Edit'));
+    //adding button to li
+    li.appendChild(butn);
     //creating x button
      var btn=document.createElement('button');
      //adding className to btn
-     btn.className='btn btn-danger btn-sm float-right delete';
+     btn.className='btn btn-danger btn-sm float-right mr-2 delete';
      //adding text to btn
      var newtxt=document.createTextNode('X');
      //adding text to btn
