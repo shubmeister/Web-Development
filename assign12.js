@@ -1,0 +1,87 @@
+
+var form=document.getElementById("my-form");
+
+var item=document.getElementById("items")
+
+form.addEventListener('submit',addItem);
+
+item.addEventListener('click',removeItems);
+item.addEventListener('click',editItems);
+
+function addItem(e)
+{
+    e.preventDefault();
+
+    var Name=document.getElementById('name').value;
+    var Email=document.getElementById('email').value;
+    var Phone=document.getElementById('phone').value;
+
+    let obj={
+        name:Name,
+        email:Email,
+        phone:Phone
+    };
+
+    let obj_serialize=JSON.stringify(obj);
+    localStorage.setItem(""+Name+"obj",obj_serialize);
+
+    var li=document.createElement('li');
+    var btn=document.createElement('button');
+    var edit=document.createElement('button')
+
+    li.className='added-item';
+    btn.className='delete';
+    edit.className='edit';
+
+    var text=document.createTextNode(Name);
+    var text1=document.createTextNode(Email);
+    var text3=document.createTextNode(Phone);
+    var text2=document.createTextNode('Delete');
+    var text4=document.createTextNode('Edit');
+
+    btn.appendChild(text2);
+    edit.appendChild(text4);
+
+    li.appendChild(text);
+    li.appendChild(text1);
+    li.appendChild(text3);
+    li.appendChild(btn);
+    li.appendChild(edit);
+
+    item.appendChild(li);
+
+}
+
+function removeItems(e)
+{
+    if(e.target.classList.contains('delete'))
+   {
+       
+        var li=e.target.parentElement;
+        var name=li.firstChild.textContent;
+        console.log(name);
+        item.removeChild(li);
+        localStorage.removeItem(name+'obj');
+       }
+}
+
+function editItems(e)
+{
+    if(e.target.classList.contains('edit'))
+   {
+       
+        var li=e.target.parentElement;
+        var name=li.firstChild.textContent;
+        var email=li.firstChild.nextSibling.textContent;
+        var phone=li.firstChild.nextSibling.nextSibling.textContent;
+        // console.log(name);
+        item.removeChild(li);
+        localStorage.removeItem(name+'obj');
+
+    document.getElementById('name').value=name;
+    document.getElementById('email').value=email;
+    document.getElementById('phone').value=phone;
+        
+   }
+
+}
